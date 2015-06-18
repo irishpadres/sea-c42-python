@@ -1,0 +1,9 @@
+#NameError
+
+
+#TypeError
+
+
+#AttributeError
+
+
