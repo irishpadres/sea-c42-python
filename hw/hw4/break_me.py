@@ -1,10 +1,10 @@
-def nameError:
+def nameError():
     print(foo)
 
-def typeError:
+def typeError():
     print("foo" / 12)
 
-def attributeError:
+def attributeError():
     foobar = 12
     print(foobar.upper())
 
