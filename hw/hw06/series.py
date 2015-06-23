@@ -2,35 +2,59 @@
 
 
 def fibonacci(n):
-    """Generate nth position of Fibonacci sequence"""
+    """
+    Description:
+        Sum a Fibonacci series of numbers
+
+    Args:
+        n: The element of the series to return
+
+    Returns:
+        Sum of the previous two elements in the series
+    """
     sequence = [0, 1]
-    sequence.extend([0] * (n - 2))
-    if (n > 2):
-        for i in range(2, n):
+    if (n > 1):
+        sequence.extend([0] * (n - 1))
+        for i in range(2, n+1):
             sequence[i] = sequence[i - 2] + sequence[i - 1]
-    return sequence[n-1]
+    return sequence[n]
 
 
 def lucas(n):
-    """Generate nth position of Lucas number series"""
+    """
+    Description:
+        Sum a Lucas series of numbers
+
+    Args:
+        n: The element of the series to return
+
+    Returns:
+        Sum of the previous two elements in the series
+    """
     sequence = [2, 1]
-    sequence.extend([0] * (n - 2))
-    if (n > 2):
-        for i in range(2, n):
+    if (n > 1):
+        sequence.extend([0] * (n - 1))
+        for i in range(2, n+1):
             sequence[i] = sequence[i - 2] + sequence[i - 1]
-    return sequence[n-1]
+    return sequence[n]
 
 
 def sum_series(n, i=0, j=1):
+    """
+    Description:
+        Sum a series of numbers
+
+    Args:
+        n: The element of the series to return
+        i: The first element of the series (Optional)
+        j: The second element of the series (Optional)
+
+    Returns:
+        Sum of the previous two elements in the series
+    """
     sequence = [i, j]
-    sequence.extend([0] * (n - 2))
-    if (n > 2):
-        for i in range(2, n):
+    if (n > 1):
+        sequence.extend([0] * (n - 1))
+        for i in range(2, n+1):
             sequence[i] = sequence[i - 2] + sequence[i - 1]
-    return sequence[n-1]
-
-
-print(fibonacci(7))
-print(lucas(6))
-print(sum_series(7))
-print(sum_series(6, 2, 1))
+    return sequence[n]
