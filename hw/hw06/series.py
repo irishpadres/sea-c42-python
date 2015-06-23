@@ -20,5 +20,17 @@ def lucas(n):
             sequence[i] = sequence[i - 2] + sequence[i - 1]
     return sequence[n-1]
 
+
+def sum_series(n, i=0, j=1):
+    sequence = [i, j]
+    sequence.extend([0] * (n - 2))
+    if (n > 2):
+        for i in range(2, n):
+            sequence[i] = sequence[i - 2] + sequence[i - 1]
+    return sequence[n-1]
+
+
 print(fibonacci(7))
 print(lucas(6))
+print(sum_series(7))
+print(sum_series(6, 2, 1))
