@@ -57,6 +57,8 @@ a_count = 0
 c_count = 0
 # Number of T nucleotides seen so far.
 t_count = 0
+# Number of N values seen so far.
+n_count = 0
 
 
 # for each base pair in the string,
@@ -77,6 +79,9 @@ for bp in seq:
     elif bp == 'T':
         # increment the count of t
         t_count += 1
+    elif bp == 'N':
+        # increment the count of n
+        n_count += 1
     else:
         # Something bad happened here
         print("bad value: %s" % bp)
@@ -86,18 +91,28 @@ for bp in seq:
 gc_count = g_count + c_count
 # compute at_count
 at_count = a_count + t_count
-# divide the gc_count by the total_count
-gc_content = float(gc_count) / total_count
-# divide the at_count by the total_count
-at_content = float(at_count) / total_count
+# compute sum of nucleotides
+sum = gc_count + at_count
+# divide the gc_count by the sum
+gc_content = float(gc_count) / sum
+# divide the at_count by the sum
+at_content = float(at_count) / sum
 
 # Print the answer
 print('GC-content:', gc_content)
 print('AT-content', at_content)
-print('G-content:', g_count)
-print('A-content', a_count)
-print('C-content:', c_count)
-print('T-content', t_count)
-print('sum:', gc_count + at_count)
-print('total_count:', total_count)
+print('G count:', g_count)
+print('C count:', c_count)
+print('A count', a_count)
+print('T count', t_count)
+print('Sum count:', gc_count + at_count)
+print('Total count:', total_count)
 print('seq length', len(seq))
+print('AT/GC Ratio:', at_count / gc_count)
+
+if (gc_content > 0.60):
+    print('GC Classification: high GC content')
+elif (gc_content < 0.40):
+    print('GC Classification: low GC content')
+else:
+    print('GC Classification: moderate GC content')
