@@ -1,0 +1,72 @@
+Name: ...
+CSE 140
+Homework 2
+
+For each problem that requires a written answer, write (or copy-and-paste)
+your answers in this file.  When you are done, you should have replaced all
+the ellipses (the three dots) with your answers.
+
+At the end, you will turn in this file along with your modified
+dna_analysis.py program.
+
+
+Problem 1:
+
+(No answers in this file.)
+
+Problem 2:
+
+GC-content: 0.4302926296296296
+
+Problem 3:
+
+Traceback (most recent call last):
+  File "dna_analysis.py", line 38, in <module>
+      linenum = linenum + 1
+      NameError: name 'linenum' is not defined
+
+This failed because linenum was defined as a variable
+
+Problem 4:
+
+GC-content: 0.4302926296296296
+AT-content 0.5689938518518518
+
+Problem 5:
+
+G-content: 5738773
+A-content 7701287
+C-content: 5879128
+T-content 7661547
+
+Problem 6:
+
+sample_1.fastq: sum differs from total_count and seq
+sample_2.fastq: sum differs from total_count and seq
+sample_3.fastq: sum differs from total_count and seq
+sample_4.fastq: sum differs from total_count and seq
+sample_5.fastq: sum differs from total_count and seq
+sample_6.fastq: sum differs from total_count and seq
+test-high-gc-1.fastq: sum differs from total_count and seq
+test-high-gc-2.fastq: sum differs from total_count and seq
+test-moderate-gc-1.fastq: sum differs from total_count and seq
+test-moderate-gc-2.fastq: sum differs from total_count and seq
+test-small.fastq: all values are the same
+The reason for the difference is there is a value N in all files that is not caught by the current logic
+The sum should be used as the denominator since that is the true length of the genetic code.
+
+Problem 7:
+
+AT/GC Ratio: 1.3223416174746196
+
+Problem 8:
+
+GC Classification: moderate GC content
+
+Collaboration:
+
+No one helped me with this. Call me Maverick
+
+Reflection:
+
+Nothing too challenging about this assignment.  It was pretty straightforward
