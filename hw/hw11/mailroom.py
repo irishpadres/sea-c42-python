@@ -3,7 +3,7 @@ import sys
 
 
 def getPromptInput():
-    userInput = input('> ').lower()
+    userInput = input('> ')
     return(userInput)
 
 
@@ -22,7 +22,7 @@ def parseInitialChoices():
     print('T - Send a (T)hank You')
     print('R - Create a (R)eport')
     print('quit - Quit the program')
-    userInput = getPromptInput()
+    userInput = getPromptInput().lower()
 
     if (userInput == 't'):
         print('Choose T')
@@ -59,6 +59,7 @@ def parseThankChoices():
         print('Choose quit')
         return(0)
     else:
+        # Name has been entered
         print('Invalid entry')
     parseThankChoices()
 
