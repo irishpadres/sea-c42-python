@@ -3,8 +3,9 @@
 # Homework 14: Election prediction
 
 import csv
-import os
+# import os
 import time
+
 
 def read_csv(path):
     """
@@ -28,14 +29,20 @@ def row_to_edge(row):
     """
     return float(row["Dem"]) - float(row["Rep"])
 
+
 def state_edges(election_result_rows):
     """
     Given a list of *ElectionDataRow*s, returns *StateEdge*s.
     The input list has no duplicate *States*;
     that is, each *State* is represented at most once in the input list.
     """
-    #TODO: Implement this function
-    pass
+    d = {}
+    for row in election_result_rows:
+        state = row['State']
+        dem = row['Dem']
+        rep = row['Rep']
+        d[state] = float(dem) - float(rep)
+    return d
 
 
 ################################################################################
@@ -49,12 +56,13 @@ def earlier_date(date1, date2):
     """
     return (time.strptime(date1, "%b %d %Y") < time.strptime(date2, "%b %d %Y"))
 
+
 def most_recent_poll_row(poll_rows, pollster, state):
     """
     Given a list of *PollDataRow*s, returns the most recent row with the
     specified *Pollster* and *State*. If no such row exists, returns None.
     """
-    #TODO: Implement this function
+    # TODO: Implement this function
     pass
 
 
@@ -67,15 +75,16 @@ def unique_column_values(rows, column_name):
     Given a list of rows and the name of a column (a string),
     returns a set containing all values in that column.
     """
-    #TODO: Implement this function
+    # TODO: Implement this function
     pass
+
 
 def pollster_predictions(poll_rows):
     """
     Given a list of *PollDataRow*s, returns *PollsterPredictions*.
     For a given pollster, uses only the most recent poll for a state.
     """
-    #TODO: Implement this function
+    # TODO: Implement this function
     pass
 
 
@@ -88,15 +97,16 @@ def average_error(state_edges_predicted, state_edges_actual):
     Given predicted *StateEdges* and actual *StateEdges*, returns
     the average error of the prediction.
     """
-    #TODO: Implement this function
+    # TODO: Implement this function
     pass
+
 
 def pollster_errors(pollster_predictions, state_edges_actual):
     """
     Given *PollsterPredictions* and actual *StateEdges*,
     retuns *PollsterErrors*.
     """
-    #TODO: Implement this function
+    # TODO: Implement this function
     pass
 
 
@@ -119,7 +129,7 @@ def pivot_nested_dict(nested_dict):
                 'x': {'a': 1, 'b': 3},
                 'z': {'b': 4} }
     """
-     #TODO: Implement this function
+    # TODO: Implement this function
     pass
 
 
@@ -137,6 +147,7 @@ def average_error_to_weight(error):
 # The default average error of a pollster who did no polling in the
 # previous election.
 DEFAULT_AVERAGE_ERROR = 5.0
+
 
 def pollster_to_weight(pollster, pollster_errors):
     """"
@@ -163,7 +174,7 @@ def weighted_average(items, weights):
     """
     assert len(items) > 0
     assert len(items) == len(weights)
-    #TODO: Implement this function
+    # TODO: Implement this function
     pass
 
 
@@ -172,7 +183,7 @@ def average_edge(pollster_edges, pollster_errors):
     Given *PollsterEdges* and *PollsterErrors*, returns the average
     of these *Edge*s weighted by their respective *PollsterErrors*.
     """
-    #TODO: Implement this function
+    # TODO: Implement this function
     pass
 
 
@@ -186,7 +197,7 @@ def predict_state_edges(pollster_predictions, pollster_errors):
     *PollsterErrors* from a past election,
     returns the predicted *StateEdges* of the current election.
     """
-    #TODO: Implement this function
+    # TODO: Implement this function
     pass
 
 
