@@ -66,7 +66,11 @@ def parseThankChoices():
         return(0)
     else:
         # Name has been entered
-        parseNameEntry(userInput)
+        donorIndex = parseNameEntry(userInput)
+        donorAmt = getDonationAmt(donorIndex)
+        if (donorAmt > 0):
+            logging.debug("Going to send note: " + str(donorAmt))
+            #sendNote(donorAmt)
     parseThankChoices()
 
 
@@ -79,12 +83,26 @@ def parseNameEntry(fullName):
         retName = donorList[i][0]
         if (retName == fullName):
             # Name Found
-            logging.debug("Name Found: " + fullName)
+            logging.debug("Name Found: " + fullName + " at " + str(i))
             donorIndex = i
         else:
             logging.debug("No Match: " + fullName + "!=" + retName)
     if (donorIndex < 0):
         logging.debug("Name NOT Found: " + fullName)
+        donorList.append([fullName, 0, 0])
+        donorIndex = len(donorList) - 1
+    return(donorIndex)
+
+
+def getDonationAmt(donorIndex):
+    print("Please enter a donation amount or 'quit':")
+    userInput = getPromptInput()
+    if (userInput == "quit" or userInput == 'q'):
+        return(-1)
+    else:
+        donationAmt = int(userInput)
+        donorList[donorIndex][1] += donationAmt
+        return(donationAmt)
 
 
 # Start main
