@@ -1,5 +1,11 @@
 #!/usr/bin/python3
 import sys
+import logging
+
+# Set logging level
+logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
+# Create global donor list
+donorList = [["Test User", 100]]
 
 
 def getPromptInput():
@@ -33,7 +39,7 @@ def parseInitialChoices():
         print('Choose quit')
         sys.exit(0)
     else:
-        print("Invalid entry")
+        logging.debug("Invalid entry")
     parseInitialChoices()
 
 
@@ -55,13 +61,30 @@ def parseThankChoices():
 
     if (userInput == 'list'):
         print('Choose list')
-    elif (userInput == 'quit'):
+    elif (userInput == 'quit' or userInput == 'q'):
         print('Choose quit')
         return(0)
     else:
         # Name has been entered
-        print('Invalid entry')
+        parseNameEntry(userInput)
     parseThankChoices()
+
+
+def parseNameEntry(fullName):
+    donorIndex = -1
+    listLength = len(donorList)
+    logging.debug("listLength: " + str(listLength))
+    for i in range(listLength):
+        logging.debug("Iterating: " + str(i))
+        retName = donorList[i][0]
+        if (retName == fullName):
+            # Name Found
+            logging.debug("Name Found: " + fullName)
+            donorIndex = i
+        else:
+            logging.debug("No Match: " + fullName + "!=" + retName)
+    if (donorIndex < 0):
+        logging.debug("Name NOT Found: " + fullName)
 
 
 # Start main
