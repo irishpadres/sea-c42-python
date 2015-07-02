@@ -60,9 +60,9 @@ def parseThankChoices():
     userInput = getPromptInput()
 
     if (userInput == 'list'):
-        print('Choose list')
+        logging.debug('Choose list')
     elif (userInput == 'quit' or userInput == 'q'):
-        print('Choose quit')
+        logging.debug('Choose quit')
         return(0)
     else:
         # Name has been entered
@@ -70,7 +70,7 @@ def parseThankChoices():
         donorAmt = getDonationAmt(donorIndex)
         if (donorAmt > 0):
             logging.debug("Going to send note: " + str(donorAmt))
-            #sendNote(donorAmt)
+            sendNote(donorIndex, donorAmt)
     parseThankChoices()
 
 
@@ -103,6 +103,27 @@ def getDonationAmt(donorIndex):
         donationAmt = int(userInput)
         donorList[donorIndex][1] += donationAmt
         return(donationAmt)
+
+
+def sendNote(donorIndex, donorAmt):
+    name = donorList[donorIndex][0]
+    print("Dear " + name + ",")
+    print("")
+    print("Thank you so much for your kind donation of $", end="")
+    print(str(donorAmt) + ". We here at the Foundation for Homeless ", end="")
+    print("Whales greatly appreciate it. Your money will go towards ", end="")
+    print("creating new oceans on the moon for whales to live in.", end="")
+    print("")
+    print("Thanks again,")
+    print("")
+    print("Jim Grant")
+    print("")
+    print("Director, F.H.W.")
+    print("")
+    print("Press Enter to Continue...")
+    print("")
+    getPromptInput()
+    return(0)
 
 
 # Start main
