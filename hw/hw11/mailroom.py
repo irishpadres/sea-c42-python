@@ -71,14 +71,16 @@ def parseThankChoices():
         printReport()
     elif (userInput == 'quit' or userInput == 'q'):
         logging.debug('Choose quit')
-        return(0)
+        sys.exit(0)
     else:
         # Name has been entered
         donorIndex = parseNameEntry(userInput)
         donorAmt = getDonationAmt(donorIndex)
         if (donorAmt > 0):
             logging.debug("Going to send note: " + str(donorAmt))
-            sendNote(donorIndex, donorAmt)
+            returnCode = sendNote(donorIndex, donorAmt)
+            if (returnCode < 0):
+                return(0)
     parseThankChoices()
 
 
@@ -142,8 +144,11 @@ def sendNote(donorIndex, donorAmt):
     print("")
     print("Press Enter to Continue...")
     print("")
-    getPromptInput()
-    return(0)
+    userInput = getPromptInput()
+    if (userInput == 'quit'):
+        sys.exit(0)
+    else:
+        return(0)
 
 
 def printReport():
