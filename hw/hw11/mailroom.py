@@ -3,9 +3,15 @@ import sys
 import logging
 
 # Set logging level
-logging.basicConfig(stream=sys.stderr, level=logging.DEBUG)
+logging.basicConfig(stream=sys.stderr, level=logging.CRITICAL)
 # Create global donor list
-donorList = [["Test User", 100]]
+donorList = [["Test User", 100, 2]]
+# Max name length
+maxNameLen = 0
+# Max amount length
+maxAmtLen = 0
+# Max quantity length
+maxQtyLen = 0
 
 
 def getPromptInput():
@@ -35,6 +41,7 @@ def parseInitialChoices():
         parseThankChoices()
     elif (userInput == 'r'):
         print('Choose R')
+        printReport()
     elif (userInput == 'quit' or userInput == 'q'):
         print('Choose quit')
         sys.exit(0)
@@ -61,6 +68,7 @@ def parseThankChoices():
 
     if (userInput == 'list'):
         logging.debug('Choose list')
+        printReport()
     elif (userInput == 'quit' or userInput == 'q'):
         logging.debug('Choose quit')
         return(0)
@@ -88,9 +96,12 @@ def parseNameEntry(fullName):
         else:
             logging.debug("No Match: " + fullName + "!=" + retName)
     if (donorIndex < 0):
+        global maxNameLen
         logging.debug("Name NOT Found: " + fullName)
         donorList.append([fullName, 0, 0])
         donorIndex = len(donorList) - 1
+        if (len(fullName) > maxNameLen):
+            maxNameLen = len(fullName)
     return(donorIndex)
 
 
@@ -100,8 +111,17 @@ def getDonationAmt(donorIndex):
     if (userInput == "quit" or userInput == 'q'):
         return(-1)
     else:
-        donationAmt = int(userInput)
+        global maxAmtLen
+        global maxQtyLen
+        donationAmt = float(userInput)
         donorList[donorIndex][1] += donationAmt
+        donorList[donorIndex][2] += 1
+        amtLen = len(str(round(donationAmt)))
+        if (amtLen > maxAmtLen):
+            maxAmtLen = amtLen
+        qtyLen = len(str(donorList[donorIndex][2]))
+        if (qtyLen > maxQtyLen):
+            maxQtyLen = qtyLen
         return(donationAmt)
 
 
@@ -110,9 +130,9 @@ def sendNote(donorIndex, donorAmt):
     print("Dear " + name + ",")
     print("")
     print("Thank you so much for your kind donation of $", end="")
-    print(str(donorAmt) + ". We here at the Foundation for Homeless ", end="")
-    print("Whales greatly appreciate it. Your money will go towards ", end="")
-    print("creating new oceans on the moon for whales to live in.", end="")
+    print('{0:0.2f}. We here at the Foundation'.format(donorAmt))
+    print("for Homeless Whales greatly appreciate it. Your money will go")
+    print("towards creating new oceans on the moon for whales to live in.")
     print("")
     print("Thanks again,")
     print("")
@@ -124,6 +144,17 @@ def sendNote(donorIndex, donorAmt):
     print("")
     getPromptInput()
     return(0)
+
+
+def printReport():
+    print('{0:^{1}} | {2:^{3}} | {4:^{5}} | {6}'.format(
+          'Name', maxNameLen, 'Total', maxAmtLen + 4, '#', maxQtyLen,
+          'Average'))
+    for entry in donorList:
+        logging.debug(entry)
+        print('{0:<{1}} | ${2:{3}.2f} | {4} | ${5:0.2f}'.format(
+              entry[0], maxNameLen, entry[1], maxAmtLen + 3, entry[2],
+              entry[1] / entry[2]))
 
 
 # Start main
