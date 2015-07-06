@@ -5,7 +5,7 @@ import logging
 # Set logging level
 logging.basicConfig(stream=sys.stderr, level=logging.CRITICAL)
 # Create global donor list
-donorList = []
+donorList = {}
 # Max name length
 maxNameLen = 0
 # Max amount length
@@ -71,61 +71,47 @@ def parseThankChoices():
         sys.exit(0)
     else:
         # Name has been entered
-        donorIndex = parseNameEntry(userInput)
-        donorAmt = getDonationAmt(donorIndex)
+        fullName = userInput
+        donorAmt = getDonationAmt(fullName)
         if (donorAmt > 0):
             logging.debug("Going to send note: " + str(donorAmt))
-            returnCode = sendNote(donorIndex, donorAmt)
+            returnCode = sendNote(fullName, donorAmt)
             if (returnCode < 0):
                 return(0)
     parseThankChoices()
 
 
-def parseNameEntry(fullName):
-    donorIndex = -1
-    listLength = len(donorList)
-    logging.debug("listLength: " + str(listLength))
-    for i in range(listLength):
-        logging.debug("Iterating: " + str(i))
-        retName = donorList[i][0]
-        if (retName == fullName):
-            # Name Found
-            logging.debug("Name Found: " + fullName + " at " + str(i))
-            donorIndex = i
-        else:
-            logging.debug("No Match: " + fullName + "!=" + retName)
-    if (donorIndex < 0):
-        global maxNameLen
-        logging.debug("Name NOT Found: " + fullName)
-        donorList.append([fullName, 0, 0])
-        donorIndex = len(donorList) - 1
-        if (len(fullName) > maxNameLen):
-            maxNameLen = len(fullName)
-    return(donorIndex)
-
-
-def getDonationAmt(donorIndex):
+def getDonationAmt(donorName):
     print("Please enter a donation amount or 'quit':")
     userInput = getPromptInput()
     if (userInput == "quit" or userInput == 'q'):
         return(-1)
     else:
+        global maxNameLen
         global maxAmtLen
         global maxQtyLen
+
         donationAmt = float(userInput)
-        donorList[donorIndex][1] += donationAmt
-        donorList[donorIndex][2] += 1
+
+        if (donorName not in donorList):
+            donorList[donorName] = []
+        donorList[donorName].append(donationAmt)
+
+        nameLen = len(donorName)
+        if (nameLen > maxNameLen):
+            maxNameLen = nameLen
+
         amtLen = len(str(round(donationAmt)))
         if (amtLen > maxAmtLen):
             maxAmtLen = amtLen
-        qtyLen = len(str(donorList[donorIndex][2]))
+
+        qtyLen = len(str(len(donorList[donorName])))
         if (qtyLen > maxQtyLen):
             maxQtyLen = qtyLen
         return(donationAmt)
 
 
-def sendNote(donorIndex, donorAmt):
-    name = donorList[donorIndex][0]
+def sendNote(name, donorAmt):
     print("Dear " + name + ",")
     print("")
     print("Thank you so much for your kind donation of $", end="")
@@ -152,11 +138,14 @@ def printReport():
     print('{0:^{1}} | {2:^{3}} | {4:^{5}} | {6}'.format(
           'Name', maxNameLen, 'Total', maxAmtLen + 4, '#', maxQtyLen,
           'Average'))
-    for entry in donorList:
-        logging.debug(entry)
+    for name in donorList.keys():
+        logging.debug(name)
+        total = 0
+        for amt in donorList[name]:
+            total += amt
+        qty = len(donorList[name])
         print('{0:<{1}} | ${2:{3}.2f} | {4} | ${5:0.2f}'.format(
-              entry[0], maxNameLen, entry[1], maxAmtLen + 3, entry[2],
-              entry[1] / entry[2]))
+              name, maxNameLen, total, maxAmtLen + 3, qty, total / qty))
 
 
 # Start main
