@@ -5,7 +5,7 @@ import logging
 # Set logging level
 logging.basicConfig(stream=sys.stderr, level=logging.CRITICAL)
 # Create global donor list
-donorList = [["Test User", 100, 2]]
+donorList = []
 # Max name length
 maxNameLen = 0
 # Max amount length
@@ -37,13 +37,10 @@ def parseInitialChoices():
     userInput = getPromptInput().lower()
 
     if (userInput == 't'):
-        print('Choose T')
         parseThankChoices()
     elif (userInput == 'r'):
-        print('Choose R')
         printReport()
     elif (userInput == 'quit' or userInput == 'q'):
-        print('Choose quit')
         sys.exit(0)
     else:
         logging.debug("Invalid entry")
@@ -163,4 +160,5 @@ def printReport():
 
 
 # Start main
-parseInitialChoices()
+if __name__ == '__main__':
+    parseInitialChoices()
