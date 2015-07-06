@@ -71,7 +71,6 @@ def parseThankChoices():
         sys.exit(0)
     else:
         # Name has been entered
-        # donorIndex = parseNameEntry(userInput)
         fullName = userInput
         donorAmt = getDonationAmt(fullName)
         if (donorAmt > 0):
@@ -80,28 +79,6 @@ def parseThankChoices():
             if (returnCode < 0):
                 return(0)
     parseThankChoices()
-
-
-# def parseNameEntry(fullName):
-#    listLength = len(donorList)
-#    logging.debug("listLength: " + str(listLength))
-#    for i in range(listLength):
-#        logging.debug("Iterating: " + str(i))
-#        retName = donorList[i][0]
-#        if (retName == fullName):
-#            # Name Found
-#            logging.debug("Name Found: " + fullName + " at " + str(i))
-#            donorIndex = i
-#        else:
-#            logging.debug("No Match: " + fullName + "!=" + retName)
-#    if (donorIndex < 0):
-#        global maxNameLen
-#        logging.debug("Name NOT Found: " + fullName)
-#        donorList.append([fullName, 0, 0])
-#        donorIndex = len(donorList) - 1
-#        if (len(fullName) > maxNameLen):
-#            maxNameLen = len(fullName)
-#    return(donorIndex)
 
 
 def getDonationAmt(donorName):
