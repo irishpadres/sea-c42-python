@@ -15,9 +15,11 @@ if __name__ == '__main__':
         fh = open(fileName, 'r')
         lines = fh.readlines()
         for line in lines:
-            wordList = re.split("[^\w'-]+", line)
-            for i in range(len(wordList)):
-                if (wordList[i] == ''):
-                    pass
-                else:
-                    print("{0:d}: {1}".format(i, repr(wordList[i])))
+            # Split lines on letters, numbers, and apostrophes
+            # Hypenated words will be split
+            wordList = re.split("[^\w']+", line.rstrip())
+            # Shortening length by one so that we don't overrun the index
+            # Also, this is preferred since we only want word pairs
+            for i in range(len(wordList) - 1):
+                print("{0:d}: {1} -> {2}".format(i, wordList[i],
+                      wordList[i + 1]))
