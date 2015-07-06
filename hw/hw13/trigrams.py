@@ -7,21 +7,24 @@ wordDict = {}
 
 
 def readFile(filename):
+    fullText = []
     fh = open(filename, 'r')
     lines = fh.readlines()
     for line in lines:
-        # Treat double hyphens as a space
-        cleanLine = line.rstrip().replace("--", " ")
-        if (len(cleanLine) > 50 or re.search("\.$", cleanLine)):
-            print(cleanLine)
-            buildDict(cleanLine)
+        # Look for lines that either long enough to be part of a paragraph or
+        # end in a period.
+        if (len(line) > 50 or re.search("\.$", line.rstrip())):
+            # Treat double hyphens as a space
+            cleanLine = line.rstrip().replace("--", " ")
+            # Split lines on letters, numbers, hyphens and apostrophes
+            wordList = re.split("[^\w'-]+", cleanLine)
+            fullText.extend(filter(None, wordList))
+
+    return(fullText)
 
 
 def buildDict(line):
-    # Split lines on letters, numbers, and apostrophes
-    # Hypenated words will be split
-    wordList = re.split("[^\w']+", line)
-    # Shortening length by one so that we don't overrun the index
+    # Shortening length by two so that we don't overrun the index
     # Also, this is preferred since we only want to evaluate the final
     # three words
     for i in range(len(wordList) - 2):
@@ -40,4 +43,5 @@ if __name__ == '__main__':
         print("Need a file name")
         sys.exit(1)
     else:
-        readFile(filename)
+        text = readFile(filename)
+        buildDict(text)
