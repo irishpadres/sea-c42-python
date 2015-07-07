@@ -31,7 +31,9 @@ def buildDict(wordList):
         curWord = wordList[i]
         nextWord = wordList[i + 1]
         lastWord = wordList[i + 2]
-        print("{0:d}: ({1}, {2}) -> {3}".format(i, curWord, nextWord, lastWord))
+        if (curWord.istitle()):
+            if ((curWord.lower(), nextWord) in wordDict):
+                print("{0} and {1}".format(curWord, curWord.lower()))
         wordDict.setdefault((curWord, nextWord), []).append(lastWord)
     return(0)
 
@@ -46,4 +48,6 @@ if __name__ == '__main__':
     else:
         text = readFile(filename)
         buildDict(text)
-        print(wordDict)
+        for pair in wordDict.keys():
+            print("{0}: {1}".format(pair, wordDict[pair]))
+        # print(wordDict)
