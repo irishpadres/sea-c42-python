@@ -23,7 +23,7 @@ def readFile(filename):
     return(fullText)
 
 
-def buildDict(line):
+def buildDict(wordList):
     # Shortening length by two so that we don't overrun the index
     # Also, this is preferred since we only want to evaluate the final
     # three words
@@ -31,8 +31,9 @@ def buildDict(line):
         curWord = wordList[i]
         nextWord = wordList[i + 1]
         lastWord = wordList[i + 2]
-        # print("{0:d}: {1} -> {2}".format(i, curWord, nextWord))
-        # wordDict[(curWord, nextWord)]
+        print("{0:d}: ({1}, {2}) -> {3}".format(i, curWord, nextWord, lastWord))
+        wordDict.setdefault((curWord, nextWord), []).append(lastWord)
+    return(0)
 
 
 # Start main
@@ -45,3 +46,4 @@ if __name__ == '__main__':
     else:
         text = readFile(filename)
         buildDict(text)
+        print(wordDict)
