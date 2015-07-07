@@ -62,18 +62,24 @@ def buildDict(wordList):
 
 
 def writeStory(wordDict):
+    text = ''
     # Create 3 to 4 paragraphs
     for paraNum in range(0, random.randrange(3, 5)):
         # Create 6 to 8 sentances
         for sentNum in range(0, random.randrange(6, 9)):
             wordTuple = random.choice(list(wordDict))
-            while wordTuple in wordDict:
-                priWord = wordTuple[0]
-                secWord = wordTuple[1]
-                terWord = random.choice(wordDict[wordTuple])
-                print("{0}, {1}: {2} {3} {4}".format(paraNum, sentNum, priWord,
-                      secWord, terWord))
-                wordTuple = (secWord, terWord)
+            text += wordTuple[0].capitalize() + " " + wordTuple[1]
+            i = 0
+            while (wordTuple in wordDict and i < 15):
+                newWord = random.choice(wordDict[wordTuple])
+                text += " " + newWord
+                wordTuple = (wordTuple[1], newWord)
+                i += 1
+            else:
+                text += ". "
+        else:
+            text += "\n"
+    return(text)
 
 
 # Start main
@@ -88,4 +94,4 @@ if __name__ == '__main__':
     text = cleanText(lines)
     wordDict = buildDict(text)
     story = writeStory(wordDict)
-    # print(story)
+    print(story)
