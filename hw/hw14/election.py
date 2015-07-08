@@ -3,7 +3,7 @@
 # Homework 14: Election prediction
 
 import csv
-# import os
+import os
 import time
 
 
@@ -62,8 +62,20 @@ def most_recent_poll_row(poll_rows, pollster, state):
     Given a list of *PollDataRow*s, returns the most recent row with the
     specified *Pollster* and *State*. If no such row exists, returns None.
     """
-    # TODO: Implement this function
-    pass
+    mostRecentDate = 'Jan 01 1900'
+    d = {}
+    for poll_data_row in poll_rows:
+        statePoll = poll_data_row["State"]
+        datePoll = poll_data_row["Date"]
+        pollsterPoll = poll_data_row["Pollster"]
+        if (pollster == pollsterPoll and state == statePoll):
+            if (earlier_date(mostRecentDate, datePoll)):
+                mostRecentDate = datePoll
+                d = poll_data_row
+    if (d):
+        return d
+    else:
+        return None
 
 
 ################################################################################
