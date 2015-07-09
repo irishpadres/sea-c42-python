@@ -228,8 +228,8 @@ def average_edge(pollster_edges, pollster_errors):
     Given *PollsterEdges* and *PollsterErrors*, returns the average
     of these *Edge*s weighted by their respective *PollsterErrors*.
     """
-    # TODO: Implement this function
-    pass
+    print(pollster_edges)
+    print(pollster_errors)
 
 
 ################################################################################
