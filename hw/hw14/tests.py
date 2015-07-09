@@ -228,7 +228,7 @@ if __name__ == "__main__":
     test_pivot_nested_dict()
     test_average_error_to_weight()
     test_pollster_to_weight()
-    # test_weighted_average()
+    test_weighted_average()
     # test_average_edge()
     # test_predict_state_edges()
     test_electoral_college_outcome()

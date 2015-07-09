@@ -216,8 +216,11 @@ def weighted_average(items, weights):
     """
     assert len(items) > 0
     assert len(items) == len(weights)
-    # TODO: Implement this function
-    pass
+    numer = 0
+    for i in range(len(items)):
+        numer += items[i] * weights[i]
+    wtdAve = numer / sum(weights)
+    return wtdAve
 
 
 def average_edge(pollster_edges, pollster_errors):
