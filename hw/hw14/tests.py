@@ -224,7 +224,7 @@ if __name__ == "__main__":
     test_unique_column_values()
     test_pollster_predictions()
     test_average_error()
-    # test_pollster_errors()
+    test_pollster_errors()
     # test_pivot_nested_dict()
     test_average_error_to_weight()
     test_pollster_to_weight()

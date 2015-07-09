@@ -137,8 +137,12 @@ def pollster_errors(pollster_predictions, state_edges_actual):
     Given *PollsterPredictions* and actual *StateEdges*,
     retuns *PollsterErrors*.
     """
-    # TODO: Implement this function
-    pass
+    d = {}
+    for pollster in pollster_predictions:
+        aveErr = average_error(pollster_predictions[pollster],
+                               state_edges_actual)
+        d[pollster] = aveErr
+    return d
 
 
 ################################################################################
