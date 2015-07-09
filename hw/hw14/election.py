@@ -123,8 +123,13 @@ def average_error(state_edges_predicted, state_edges_actual):
     Given predicted *StateEdges* and actual *StateEdges*, returns
     the average error of the prediction.
     """
-    # TODO: Implement this function
-    pass
+    stateCount = 0
+    diffSum = 0
+    for state in state_edges_predicted:
+        stateCount += 1
+        diffSum += abs(state_edges_predicted[state] - state_edges_actual[state])
+    aveError = diffSum / stateCount
+    return aveError
 
 
 def pollster_errors(pollster_predictions, state_edges_actual):
