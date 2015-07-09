@@ -100,19 +100,17 @@ def pollster_predictions(poll_rows):
     For a given pollster, uses only the most recent poll for a state.
     """
     d = {}
-    print(poll_rows)
     for poll_data_row in poll_rows:
         state = poll_data_row["State"]
-        dem = poll_data_row["Dem"]
-        rep = poll_data_row["Rep"]
-        date = poll_data_row["Date"]
         pollster = poll_data_row["Pollster"]
-        if state in d[pollster]:
+
+        recent_row = most_recent_poll_row(poll_rows, pollster, state)
+        dem = recent_row["Dem"]
+        rep = recent_row["Rep"]
+
+        if pollster not in d:
             d[pollster] = {}
-            d[pollster][state] = None
-        # d.setdefault(pollster, None)
-        # d[pollster].setdefault(state, None)
-    print(d)
+        d[pollster][state] = float(dem) - float(rep)
     return d
 
 
