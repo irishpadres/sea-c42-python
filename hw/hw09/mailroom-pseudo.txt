@@ -1,0 +1,55 @@
+def parseInitialChoices():
+    print main_menu
+    prompt for input
+    if T
+        go_to_thank_menu
+    if R
+        print report
+    if quit
+        exit with 0
+    else
+        something weird happened
+    start from beginning
+
+
+def parseThankChoices():
+    prompt for input
+    if list
+        print report
+    if quit
+        return
+    else:
+        get or create new donor
+        get donation amount
+        send note
+    restart menu
+
+
+def parseNameEntry(fullName)
+    For each existing entry in donor list
+        if name passed matches entry list
+            get the list index number
+        else
+            append a new entry to the donor list
+            get the length of donor list
+
+
+
+def getDonationAmt(donorIndex):
+    prompt for donation amount
+    add amount to total for donor
+    increment donation count
+    return donation amount
+
+
+def sendNote(donor index, amount):
+    send note with name and donation amount
+    return
+
+
+def printReport():
+    for each donor
+    print report
+
+# Start main
+start with showing main menu options

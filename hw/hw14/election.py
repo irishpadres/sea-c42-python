@@ -99,8 +99,21 @@ def pollster_predictions(poll_rows):
     Given a list of *PollDataRow*s, returns *PollsterPredictions*.
     For a given pollster, uses only the most recent poll for a state.
     """
-    # TODO: Implement this function
-    pass
+    d = {}
+    print(poll_rows)
+    for poll_data_row in poll_rows:
+        state = poll_data_row["State"]
+        dem = poll_data_row["Dem"]
+        rep = poll_data_row["Rep"]
+        date = poll_data_row["Date"]
+        pollster = poll_data_row["Pollster"]
+        if state in d[pollster]:
+            d[pollster] = {}
+            d[pollster][state] = None
+        # d.setdefault(pollster, None)
+        # d[pollster].setdefault(state, None)
+    print(d)
+    return d
 
 
 ################################################################################
