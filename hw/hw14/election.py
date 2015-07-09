@@ -164,8 +164,7 @@ def pivot_nested_dict(nested_dict):
                 'x': {'a': 1, 'b': 3},
                 'z': {'b': 4} }
     """
-    # TODO: Implement this function
-    pass
+    print(nested_dict)
 
 
 ################################################################################
