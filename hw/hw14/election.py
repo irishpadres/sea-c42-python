@@ -3,7 +3,7 @@
 # Homework 14: Election prediction
 
 import csv
-import os
+# import os
 import time
 
 
@@ -230,6 +230,13 @@ def average_edge(pollster_edges, pollster_errors):
     """
     print(pollster_edges)
     print(pollster_errors)
+    edges = []
+    weights = []
+    for pollster in pollster_edges:
+        weight = pollster_to_weight(pollster, pollster_errors)
+        edges.append(pollster_edges[pollster])
+        weights.append(weight)
+    return weighted_average(edges, weights)
 
 
 ################################################################################
