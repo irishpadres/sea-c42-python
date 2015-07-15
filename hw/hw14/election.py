@@ -228,8 +228,6 @@ def average_edge(pollster_edges, pollster_errors):
     Given *PollsterEdges* and *PollsterErrors*, returns the average
     of these *Edge*s weighted by their respective *PollsterErrors*.
     """
-    print(pollster_edges)
-    print(pollster_errors)
     edges = []
     weights = []
     for pollster in pollster_edges:
@@ -249,8 +247,17 @@ def predict_state_edges(pollster_predictions, pollster_errors):
     *PollsterErrors* from a past election,
     returns the predicted *StateEdges* of the current election.
     """
-    # TODO: Implement this function
-    pass
+    stateEdges = {}
+
+    pivot_pollster_predictions = pivot_nested_dict(pollster_predictions)
+
+    for state in pivot_pollster_predictions:
+        aveEdge = average_edge(pivot_pollster_predictions[state],
+                               pollster_errors)
+        stateEdges[state] = aveEdge
+
+    return stateEdges
+
 
 
 ################################################################################
