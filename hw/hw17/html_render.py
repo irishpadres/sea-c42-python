@@ -50,7 +50,8 @@ class Element(object):
 class Html(Element):
 
     def __init__(self, content="", **kwargs):
-        Element.__init__(self, tag="html", content=content, oneLineFlag=False, **kwargs)
+        Element.__init__(self, tag="html", content=content, oneLineFlag=False,
+                         **kwargs)
 
     def render(self, fh, indent=""):
         fh.write("<!DOCTYPE html>\n")
@@ -60,25 +61,29 @@ class Html(Element):
 class Body(Element):
 
     def __init__(self, content="", **kwargs):
-        Element.__init__(self, tag="body", content=content, oneLineFlag=False, **kwargs)
+        Element.__init__(self, tag="body", content=content, oneLineFlag=False,
+                         **kwargs)
 
 
 class P(Element):
 
     def __init__(self, content="", **kwargs):
-        Element.__init__(self, tag="p", content=content, oneLineFlag=False, **kwargs)
+        Element.__init__(self, tag="p", content=content, oneLineFlag=False,
+                         **kwargs)
 
 
 class Head(Element):
 
     def __init__(self, content="", **kwargs):
-        Element.__init__(self, tag="head", content=content, oneLineFlag=False, **kwargs)
+        Element.__init__(self, tag="head", content=content, oneLineFlag=False,
+                         **kwargs)
 
 
 class OneLineTag(Element):
 
     def __init__(self, tag="", content="", **kwargs):
-        Element.__init__(self, tag=tag, content=content, oneLineFlag=True, **kwargs)
+        Element.__init__(self, tag=tag, content=content, oneLineFlag=True,
+                         **kwargs)
 
 
 class Title(OneLineTag):
