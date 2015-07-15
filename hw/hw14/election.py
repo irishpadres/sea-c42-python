@@ -340,4 +340,4 @@ if __name__ == "__main__":
 ### Collaboration
 ###
 
-# ... Write your answer here, as a comment (on lines starting with "#").
+# No one helped with the assignment
