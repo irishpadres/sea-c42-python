@@ -10,62 +10,45 @@ Python class example.
 # Fill it all in here.
 class Element(object):
 
-    def __init__(self, name="", content="", indent="    "):
-        self.name = name
-        self.content = content
-        self.indent = indent
+    BASE_INDENT = "    "
 
-    def append(self, new_text):
-        self.content += self.indent + new_text + "\n"
+    def __init__(self, tag="", content=None):
+        self.tag = tag
+        self.content = []
+        self.append(content)
 
-    def render(self, file_out, indent=""):
-        indented_content = indent + self.content
-        final_content = "<>\n" + indented_content + "</>"
-        file_out.write(final_content)
+    def append(self, content):
+        if (content):
+            self.content.append(content)
+
+    def render(self, fh, indent=""):
+        fh.write("%s<%s>\n" % (indent, self.tag))
+        curIndent = indent + Element.BASE_INDENT
+        for content in self.content:
+            if (isinstance(content, str)):
+                fh.write("%s%s\n" % (curIndent, content))
+            elif (isinstance(content, Element)):
+                content.render(fh, curIndent)
+        fh.write("%s</%s>\n" % (indent, self.tag))
 
 
 class Html(Element):
 
-    def __init__(self, name="", content=""):
-        self.name = name
-        self.content = "<!DOCTYPE html>\n"
-        self.content += "<html>\n"
-        self.content += content
+    def __init__(self, content=""):
+        Element.__init__(self, tag="html", content=content)
 
-    def render(self, file_out, indent=""):
-        indent += self.content
-        indent += "</html>\n"
-        write_out = open(file_out, "w")
-        write_out.write(indent)
-        write_out.close()
+    def render(self, fh, indent=""):
+        fh.write("<!DOCTYPE html>\n")
+        Element.render(self, fh)
 
 
 class Body(Element):
 
-    def __init__(self, content="", name=""):
-        self.name = name
-        indented_content = add_indent(content)
-        self.content = "<body>\n{}\n<\\body>\n".format(indented_content)
-
-    def __str__(self):
-        return self.content
+    def __init__(self, content=""):
+        Element.__init__(self, tag="body", content=content)
 
 
 class P(Element):
 
-    def __init__(self, content="", name=""):
-        self.name = name
-        indented_content = add_indent(content)
-        self.content = "<p>\n{}\n<\p>\n".format(indented_content)
-
-    def __str__(self):
-        return self.content
-
-
-def add_indent(content):
-    """Adds four blank spaces infront of every line of a given string."""
-    lines = content.split("\n")
-    ind_lines = []
-    for line in lines:
-        ind_lines.append("    " + line)
-    return "".join(ind_lines)
+    def __init__(self, content=""):
+        Element.__init__(self, tag="p", content=content)
