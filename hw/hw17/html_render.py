@@ -104,3 +104,10 @@ class Hr(SelfClosingTag):
 
     def __init__(self, content="", **kwargs):
         SelfClosingTag.__init__(self, tag="hr", content=content, **kwargs)
+
+
+class A(OneLineTag):
+
+    def __init__(self, link, content="", **kwargs):
+        kwargs['href'] = link
+        OneLineTag.__init__(self, tag="a", content=content, **kwargs)
